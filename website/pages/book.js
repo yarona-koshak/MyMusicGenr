@@ -8,9 +8,6 @@ import { query, send } from "../_utils";
  * @property {string} Description
  */
 
-/**@type {HTMLTitleElement} */
-let title = document.getElementsByTagName("title");
-
 /**@type {HTMLHeadingElement} */
 let titleHeading = document.getElementById("titleHeading");
 
