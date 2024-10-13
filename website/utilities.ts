@@ -1,4 +1,4 @@
-export async function send(path: string, body: any): Promise<any> {
+export async function send(path: string, body?: any): Promise<any> {
   let response = await fetch(
     `/${path}`,
     {

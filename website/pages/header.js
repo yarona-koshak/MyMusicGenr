@@ -1,63 +1,41 @@
-import { send } from "../_utils";
-
-/**@type {HTMLDivElement} */
+import { send } from "../utilities";
 let loggedOutDiv = document.getElementById("loggedOutDiv");
-
-/**@type {HTMLButtonElement} */
 let logInButton = document.getElementById("logInButton");
-
-/**@type {HTMLButtonElement} */
 let signUpButton = document.getElementById("signUpButton");
-
-/**@type {HTMLDivElement} */
 let loggedInDiv = document.getElementById("loggedInDiv");
-
-/**@type {HTMLDivElement} */
 let greetingDiv = document.getElementById("greetingDiv");
-
-/**@type {HTMLButtonElement} */
 let logOutButton = document.getElementById("logOutButton");
-
 logInButton.onclick = function () {
-  top.location.href = "logIn.html";
-}
-
+    top.location.href = "logIn.html";
+};
 signUpButton.onclick = function () {
-  top.location.href = "signUp.html";
-}
-
+    top.location.href = "signUp.html";
+};
 logOutButton.onclick = function logOut() {
-  localStorage.removeItem("userId");
-  top.location.href = "index.html";
-}
-
-async function verifyUserId() {
-  let userId = localStorage.getItem("userId");
-
-  if (userId == null) {
-    return;
-  }
-
-  /**@type {boolean} */
-  let userExists = await send("verifyUserId", userId);
-
-  if (!userExists) {
     localStorage.removeItem("userId");
-  }
+    top.location.href = "index.html";
+};
+async function verifyUserId() {
+    let userId = localStorage.getItem("userId");
+    if (userId == null) {
+        return;
+    }
+    let userExists = await send("verifyUserId", userId);
+    if (!userExists) {
+        localStorage.removeItem("userId");
+    }
 }
-
 async function makeStatusVisible() {
-  let userId = localStorage.getItem("userId");
-
-  if (userId == null) {
-    loggedOutDiv.classList.remove("hidden");
-  }
-  else {
-    let username = await send("getUsername", userId);
-    greetingDiv.innerText = "Welcome, " + username + "!";
-    loggedInDiv.classList.remove("hidden");
-  }
+    let userId = localStorage.getItem("userId");
+    if (userId == null) {
+        loggedOutDiv.classList.remove("hidden");
+    }
+    else {
+        let username = await send("getUsername", userId);
+        greetingDiv.innerText = "Welcome, " + username + "!";
+        loggedInDiv.classList.remove("hidden");
+    }
 }
-
 verifyUserId();
 makeStatusVisible();
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaGVhZGVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiaGVhZGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE9BQU8sRUFBRSxJQUFJLEVBQUUsTUFBTSxjQUFjLENBQUM7QUFFcEMsSUFBSSxZQUFZLEdBQUcsUUFBUSxDQUFDLGNBQWMsQ0FBQyxjQUFjLENBQW1CLENBQUM7QUFDN0UsSUFBSSxXQUFXLEdBQUcsUUFBUSxDQUFDLGNBQWMsQ0FBQyxhQUFhLENBQXNCLENBQUM7QUFDOUUsSUFBSSxZQUFZLEdBQUcsUUFBUSxDQUFDLGNBQWMsQ0FBQyxjQUFjLENBQXNCLENBQUM7QUFDaEYsSUFBSSxXQUFXLEdBQUcsUUFBUSxDQUFDLGNBQWMsQ0FBQyxhQUFhLENBQW1CLENBQUM7QUFDM0UsSUFBSSxXQUFXLEdBQUcsUUFBUSxDQUFDLGNBQWMsQ0FBQyxhQUFhLENBQW1CLENBQUM7QUFDM0UsSUFBSSxZQUFZLEdBQUcsUUFBUSxDQUFDLGNBQWMsQ0FBQyxjQUFjLENBQXNCLENBQUM7QUFFaEYsV0FBVyxDQUFDLE9BQU8sR0FBRztJQUNwQixHQUFJLENBQUMsUUFBUSxDQUFDLElBQUksR0FBRyxZQUFZLENBQUM7QUFDcEMsQ0FBQyxDQUFBO0FBRUQsWUFBWSxDQUFDLE9BQU8sR0FBRztJQUNyQixHQUFJLENBQUMsUUFBUSxDQUFDLElBQUksR0FBRyxhQUFhLENBQUM7QUFDckMsQ0FBQyxDQUFBO0FBRUQsWUFBWSxDQUFDLE9BQU8sR0FBRyxTQUFTLE1BQU07SUFDcEMsWUFBWSxDQUFDLFVBQVUsQ0FBQyxRQUFRLENBQUMsQ0FBQztJQUNsQyxHQUFJLENBQUMsUUFBUSxDQUFDLElBQUksR0FBRyxZQUFZLENBQUM7QUFDcEMsQ0FBQyxDQUFBO0FBRUQsS0FBSyxVQUFVLFlBQVk7SUFDekIsSUFBSSxNQUFNLEdBQUcsWUFBWSxDQUFDLE9BQU8sQ0FBQyxRQUFRLENBQUMsQ0FBQztJQUU1QyxJQUFJLE1BQU0sSUFBSSxJQUFJLEVBQUU7UUFDbEIsT0FBTztLQUNSO0lBRUQsSUFBSSxVQUFVLEdBQUcsTUFBTSxJQUFJLENBQUMsY0FBYyxFQUFFLE1BQU0sQ0FBWSxDQUFDO0lBRS9ELElBQUksQ0FBQyxVQUFVLEVBQUU7UUFDZixZQUFZLENBQUMsVUFBVSxDQUFDLFFBQVEsQ0FBQyxDQUFDO0tBQ25DO0FBQ0gsQ0FBQztBQUVELEtBQUssVUFBVSxpQkFBaUI7SUFDOUIsSUFBSSxNQUFNLEdBQUcsWUFBWSxDQUFDLE9BQU8sQ0FBQyxRQUFRLENBQUMsQ0FBQztJQUU1QyxJQUFJLE1BQU0sSUFBSSxJQUFJLEVBQUU7UUFDbEIsWUFBWSxDQUFDLFNBQVMsQ0FBQyxNQUFNLENBQUMsUUFBUSxDQUFDLENBQUM7S0FDekM7U0FDSTtRQUNILElBQUksUUFBUSxHQUFHLE1BQU0sSUFBSSxDQUFDLGFBQWEsRUFBRSxNQUFNLENBQUMsQ0FBQztRQUNqRCxXQUFXLENBQUMsU0FBUyxHQUFHLFdBQVcsR0FBRyxRQUFRLEdBQUcsR0FBRyxDQUFDO1FBQ3JELFdBQVcsQ0FBQyxTQUFTLENBQUMsTUFBTSxDQUFDLFFBQVEsQ0FBQyxDQUFDO0tBQ3hDO0FBQ0gsQ0FBQztBQUVELFlBQVksRUFBRSxDQUFDO0FBQ2YsaUJBQWlCLEVBQUUsQ0FBQyJ9

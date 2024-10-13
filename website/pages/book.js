@@ -1,64 +1,33 @@
-import { query, send } from "../_utils";
-
-/**
- * @typedef Book
- * @property {string} Title
- * @property {string} Author
- * @property {string} ImageSource
- * @property {string} Description
- */
-
-/**@type {HTMLHeadingElement} */
+import { query, send } from "../utilities";
 let titleHeading = document.getElementById("titleHeading");
-
-/**@type {HTMLHeadingElement} */
 let authorHeading = document.getElementById("authorHeading");
-
-/**@type {HTMLImageElement} */
 let coverImg = document.getElementById("coverImg");
-
-/**@type {HTMLHeadingElement} */
 let uploaderHeading = document.getElementById("uploaderHeading");
-
-/**@type {HTMLDivElement} */
 let favoriteDiv = document.getElementById("favoriteDiv");
-
-/**@type {HTMLInputElement} */
 let favoriteCheckbox = document.getElementById("favoriteCheckbox");
-
-/**@type {HTMLDivElement} */
 let descriptionDiv = document.getElementById("descriptionDiv");
-
-
 let userId = localStorage.getItem("userId");
-let bookId = Number(query.bookId);
-
+let bookId = Number(query['bookId']);
 appendBook();
-
-favoriteCheckbox.onchange = function() {
-  if (favoriteCheckbox.checked) {
-    send("addToFavorites", [userId, bookId]);
-  }
-  else {
-    send("removeFromFavorites", [userId, bookId]);
-  }
-}
-
+favoriteCheckbox.onchange = function () {
+    if (favoriteCheckbox.checked) {
+        send("addToFavorites", [userId, bookId]);
+    }
+    else {
+        send("removeFromFavorites", [userId, bookId]);
+    }
+};
 async function appendBook() {
-  /**@type {[Book, string, boolean]} */
-  let [book, uploader, isFavorite] = await send("getBookInfo", [userId, bookId]);
-
-  document.title = book.Title;
-  titleHeading.innerText = book.Title;
-  authorHeading.innerText = `by ${book.Author}`;
-  uploaderHeading.innerText = `Uploaded by ${uploader}`
-  coverImg.src = book.ImageSource;
-
-  if (userId != null) {
-    favoriteDiv.classList.remove("hidden");
-    favoriteCheckbox.checked = isFavorite;
-  }
-
-  descriptionDiv.innerText = book.Description;
+    let [book, uploader, isFavorite] = await send("getBookInfo", [userId, bookId]);
+    document.title = book.Title;
+    titleHeading.innerText = book.Title;
+    authorHeading.innerText = `by ${book.Author}`;
+    uploaderHeading.innerText = `Uploaded by ${uploader}`;
+    coverImg.src = book.ImageSource;
+    if (userId != null) {
+        favoriteDiv.classList.remove("hidden");
+        favoriteCheckbox.checked = isFavorite;
+    }
+    descriptionDiv.innerText = book.Description;
 }
-
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYm9vay5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbImJvb2sudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0EsT0FBTyxFQUFFLEtBQUssRUFBRSxJQUFJLEVBQUUsTUFBTSxjQUFjLENBQUM7QUFFM0MsSUFBSSxZQUFZLEdBQUcsUUFBUSxDQUFDLGNBQWMsQ0FBQyxjQUFjLENBQXVCLENBQUM7QUFDakYsSUFBSSxhQUFhLEdBQUcsUUFBUSxDQUFDLGNBQWMsQ0FBQyxlQUFlLENBQXVCLENBQUM7QUFDbkYsSUFBSSxRQUFRLEdBQUcsUUFBUSxDQUFDLGNBQWMsQ0FBQyxVQUFVLENBQXFCLENBQUM7QUFDdkUsSUFBSSxlQUFlLEdBQUcsUUFBUSxDQUFDLGNBQWMsQ0FBQyxpQkFBaUIsQ0FBdUIsQ0FBQztBQUN2RixJQUFJLFdBQVcsR0FBRyxRQUFRLENBQUMsY0FBYyxDQUFDLGFBQWEsQ0FBbUIsQ0FBQztBQUMzRSxJQUFJLGdCQUFnQixHQUFHLFFBQVEsQ0FBQyxjQUFjLENBQUMsa0JBQWtCLENBQXFCLENBQUM7QUFDdkYsSUFBSSxjQUFjLEdBQUcsUUFBUSxDQUFDLGNBQWMsQ0FBQyxnQkFBZ0IsQ0FBbUIsQ0FBQztBQUVqRixJQUFJLE1BQU0sR0FBRyxZQUFZLENBQUMsT0FBTyxDQUFDLFFBQVEsQ0FBQyxDQUFDO0FBQzVDLElBQUksTUFBTSxHQUFHLE1BQU0sQ0FBQyxLQUFLLENBQUMsUUFBUSxDQUFDLENBQUMsQ0FBQztBQUVyQyxVQUFVLEVBQUUsQ0FBQztBQUViLGdCQUFnQixDQUFDLFFBQVEsR0FBRztJQUMxQixJQUFJLGdCQUFnQixDQUFDLE9BQU8sRUFBRTtRQUM1QixJQUFJLENBQUMsZ0JBQWdCLEVBQUUsQ0FBQyxNQUFNLEVBQUUsTUFBTSxDQUFDLENBQUMsQ0FBQztLQUMxQztTQUNJO1FBQ0gsSUFBSSxDQUFDLHFCQUFxQixFQUFFLENBQUMsTUFBTSxFQUFFLE1BQU0sQ0FBQyxDQUFDLENBQUM7S0FDL0M7QUFDSCxDQUFDLENBQUE7QUFFRCxLQUFLLFVBQVUsVUFBVTtJQUN2QixJQUFJLENBQUMsSUFBSSxFQUFFLFFBQVEsRUFBRSxVQUFVLENBQUMsR0FBRyxNQUFNLElBQUksQ0FBQyxhQUFhLEVBQUUsQ0FBQyxNQUFNLEVBQUUsTUFBTSxDQUFDLENBQTRCLENBQUM7SUFFMUcsUUFBUSxDQUFDLEtBQUssR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDO0lBQzVCLFlBQVksQ0FBQyxTQUFTLEdBQUcsSUFBSSxDQUFDLEtBQUssQ0FBQztJQUNwQyxhQUFhLENBQUMsU0FBUyxHQUFHLE1BQU0sSUFBSSxDQUFDLE1BQU0sRUFBRSxDQUFDO0lBQzlDLGVBQWUsQ0FBQyxTQUFTLEdBQUcsZUFBZSxRQUFRLEVBQUUsQ0FBQTtJQUNyRCxRQUFRLENBQUMsR0FBRyxHQUFHLElBQUksQ0FBQyxXQUFXLENBQUM7SUFFaEMsSUFBSSxNQUFNLElBQUksSUFBSSxFQUFFO1FBQ2xCLFdBQVcsQ0FBQyxTQUFTLENBQUMsTUFBTSxDQUFDLFFBQVEsQ0FBQyxDQUFDO1FBQ3ZDLGdCQUFnQixDQUFDLE9BQU8sR0FBRyxVQUFVLENBQUM7S0FDdkM7SUFFRCxjQUFjLENBQUMsU0FBUyxHQUFHLElBQUksQ0FBQyxXQUFXLENBQUM7QUFDOUMsQ0FBQyJ9
