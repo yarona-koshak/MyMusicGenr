@@ -15,6 +15,8 @@ class Program
 
     var database = new Database();
 
+    AddStartBooks(database);
+
     while (true)
     {
       (var request, var response) = server.WaitForRequest();
@@ -114,7 +116,7 @@ class Program
           }
           else if (request.Path == "getBookInfo")
           {
-            var (userId, bookId) = request.GetBody<(string, int)>();
+            var (userId, bookId) = request.GetBody<(string?, int)>();
 
             var book = database.Books.Find(bookId)!;
 
@@ -159,8 +161,49 @@ class Program
 
       response.Close();
     }
+  }
 
+  static void AddStartBooks(Database database)
+  {
+    if (!database.Users.Any(user => user.Id == "startId"))
+    {
+      var startUser = new User("startUserId", "Start User", "");
 
+      database.Users.Add(startUser);
+
+      database.SaveChanges();
+
+      var startBooks = new Book[] {
+        new Book(
+          "The Little Prince",
+          "Antoine de Saint-Exupéry",
+          "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1367545443i/157993.jpg",
+          "A pilot stranded in the desert awakes one morning to see, standing before him, the most extraordinary little fellow.",
+          "startUserId"
+        ),
+        new Book(
+          "Life of Pi",
+          "Yann Martel",
+          "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1631251689i/4214.jpg",
+          "Life of Pi is a fantasy adventure novel by Yann Martel published in 2001.",
+          "startUserId"
+        ),
+        new Book(
+          "Catching Fire",
+          "Suzanne Collins",
+          "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1586722941i/6148028.jpg",
+          "Against all odds, Katniss Everdeen has won the Hunger Games. She and fellow District 12 tribute Peeta Mellark are miraculously still alive.",
+          "startUserId"
+        ),
+      };
+
+      for (int i = 0; i < startBooks.Length; i++)
+      {
+        database.Books.Add(startBooks[i]);
+      }
+
+      database.SaveChanges();
+    }
   }
 }
 

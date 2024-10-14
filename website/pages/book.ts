@@ -10,11 +10,14 @@ let favoriteCheckbox = document.getElementById("favoriteCheckbox") as HTMLInputE
 let descriptionDiv = document.getElementById("descriptionDiv") as HTMLDivElement;
 
 let userId = localStorage.getItem("userId");
-let bookId = Number(query['bookId']);
+let bookId = Number(query["bookId"]);
+
+console.log(query);
+console.log(query["bookId"]);
 
 appendBook();
 
-favoriteCheckbox.onchange = function() {
+favoriteCheckbox.onchange = function () {
   if (favoriteCheckbox.checked) {
     send("addToFavorites", [userId, bookId]);
   }
