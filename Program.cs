@@ -165,7 +165,7 @@ class Program
 
   static void AddStartBooks(Database database)
   {
-    if (!database.Users.Any(user => user.Id == "startId"))
+    if (!database.Users.Any(user => user.Id == "startUserId"))
     {
       var startUser = new User("startUserId", "Start User", "");
 

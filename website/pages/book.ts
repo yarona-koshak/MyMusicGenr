@@ -1,5 +1,7 @@
 import { Book } from "../types";
-import { query, send } from "../utilities";
+import { send } from "../utilities";
+
+let query = new URLSearchParams(location.search);
 
 let titleHeading = document.getElementById("titleHeading") as HTMLHeadingElement;
 let authorHeading = document.getElementById("authorHeading") as HTMLHeadingElement;
@@ -10,10 +12,9 @@ let favoriteCheckbox = document.getElementById("favoriteCheckbox") as HTMLInputE
 let descriptionDiv = document.getElementById("descriptionDiv") as HTMLDivElement;
 
 let userId = localStorage.getItem("userId");
-let bookId = Number(query["bookId"]);
+let bookId = Number(query.get("bookId"));
 
-console.log(query);
-console.log(query["bookId"]);
+console.log(query.get("bookId"));
 
 appendBook();
 
@@ -42,4 +43,3 @@ async function appendBook() {
 
   descriptionDiv.innerText = book.Description;
 }
-
