@@ -14,8 +14,6 @@ let descriptionDiv = document.getElementById("descriptionDiv") as HTMLDivElement
 let userId = localStorage.getItem("userId");
 let bookId = Number(query.get("bookId"));
 
-console.log(query.get("bookId"));
-
 appendBook();
 
 favoriteCheckbox.onchange = function () {

@@ -122,9 +122,13 @@ class Program
 
             var uploader = book.Uploader.Username;
 
-            var isFavorite = database.Favorites.Any(
-              favorite => favorite.UserId == userId && favorite.BookId == bookId
-            );
+            bool isFavorite = false;
+            if (userId != null)
+            {
+              isFavorite = database.Favorites.Any(
+                favorite => favorite.UserId == userId && favorite.BookId == bookId
+              );
+            }
 
             response.Send((book, uploader, isFavorite));
           }
