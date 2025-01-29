@@ -41,21 +41,12 @@ class Program
           /*──────────────────────────────────╮
           │ Handle your custome requests here │
           ╰──────────────────────────────────*/
-          if (request.Path == "verifyUserId")
-          {
-            string userId = request.GetBody<string>();
-
-            var userExists = database.Users.Any(user => user.Id == userId);
-
-            response.Send(userExists);
-          }
-          else if (request.Path == "signUp")
+          if (request.Path == "signUp")
           {
             var (username, password) = request.GetBody<(string, string)>();
 
             var userExists = database.Users.Any(user =>
-              user.Username == username &&
-              user.Password == password
+              user.Username == username
             );
 
             if (!userExists)
@@ -81,9 +72,9 @@ class Program
           {
             string userId = request.GetBody<string>();
 
-            var user = database.Users.Find(userId)!;
+            var user = database.Users.Find(userId);
 
-            var username = user.Username;
+            var username = user?.Username;
 
             response.Send(username);
           }
