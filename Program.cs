@@ -15,7 +15,7 @@ class Program
 
     var database = new Database();
 
-    AddStartBooks(database);
+    AddStartGenres(database);
 
     while (true)
     {
@@ -78,21 +78,21 @@ class Program
 
             response.Send(username);
           }
-          else if (request.Path == "getBooks")
+          else if (request.Path == "getGenres")
           {
-            var books = database.Books.ToArray();
+            var Genres = database.Genres.ToArray();
 
-            response.Send(books);
+            response.Send(Genres);
           }
-          else if (request.Path == "getSortedBooks")
+          else if (request.Path == "getSortedGenres")
           {
             var userId = request.GetBody<string>();
 
-            var uploadedByMe = database.Books.Where(book => book.UploaderId == userId);
+            var uploadedByMe = database.Genres.Where(genr => genr.UploaderId == userId);
 
             var favorites = database.Favorites
               .Where(favorite => favorite.UserId == userId)
-              .Select(favorite => favorite.Book);
+              .Select(favorite => favorite.Genr);
 
             response.Send((favorites, uploadedByMe));
           }
@@ -101,42 +101,42 @@ class Program
             var (title, author, imageSource, description, uploaderId) =
               request.GetBody<(string, string, string, string, string)>();
 
-            var book = new Book(title, author, imageSource, description, uploaderId);
+            var Genr = new Genr(title, author, imageSource, description, uploaderId);
 
-            database.Books.Add(book);
+            database.Genres.Add(Genr);
           }
-          else if (request.Path == "getBookInfo")
+          else if (request.Path == "getGenrInfo")
           {
-            var (userId, bookId) = request.GetBody<(string?, int)>();
+            var (userId, genrId) = request.GetBody<(string?, int)>();
 
-            var book = database.Books.Find(bookId)!;
+            var genr = database.Genres.Find(genrId)!;
 
-            var uploader = book.Uploader.Username;
+            var uploader = genr.Uploader.Username;
 
             bool isFavorite = false;
             if (userId != null)
             {
               isFavorite = database.Favorites.Any(
-                favorite => favorite.UserId == userId && favorite.BookId == bookId
+                favorite => favorite.UserId == userId && favorite.genrId == genrId
               );
             }
 
-            response.Send((book, uploader, isFavorite));
+            response.Send((genr, uploader, isFavorite));
           }
           else if (request.Path == "addToFavorites")
           {
-            var (userId, bookId) = request.GetBody<(string, int)>();
+            var (userId, genrId) = request.GetBody<(string, int)>();
 
-            var favorite = new Favorite(userId, bookId);
+            var favorite = new Favorite(userId, genrId);
 
             database.Favorites.Add(favorite);
           }
           else if (request.Path == "removeFromFavorites")
           {
-            var (userId, bookId) = request.GetBody<(string, int)>();
+            var (userId, genrId) = request.GetBody<(string, int)>();
 
             var favorite = database.Favorites.First(
-              favorite => favorite.UserId == userId && favorite.BookId == bookId
+              favorite => favorite.UserId == userId && favorite.genrId == genrId
             );
 
             database.Favorites.Remove(favorite);
@@ -158,7 +158,7 @@ class Program
     }
   }
 
-  static void AddStartBooks(Database database)
+  static void AddStartGenres(Database database)
   {
     if (!database.Users.Any(user => user.Id == "startUserId"))
     {
@@ -168,33 +168,83 @@ class Program
 
       database.SaveChanges();
 
-      var startBooks = new Book[] {
-        new Book(
-          "The Little Prince",
-          "Antoine de Saint-Exupéry",
-          "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1367545443i/157993.jpg",
+      var startGenres = new Genr[] {
+        new Genr(
+          "Pop",
+          "The Pop Music",
+          "https://yt3.googleusercontent.com/Z8w-S67SqRr1QM3uZVQLzNQc9cIx-l4pokLv17Hd5cnoDIIl16WsNetzycuFeyhKO911kBwbfg=s900-c-k-c0x00ffffff-no-rj",
           "A pilot stranded in the desert awakes one morning to see, standing before him, the most extraordinary little fellow.",
           "startUserId"
         ),
-        new Book(
-          "Life of Pi",
-          "Yann Martel",
-          "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1631251689i/4214.jpg",
+        new Genr(
+          "Rock",
+          "The Rock Music",
+          "https://i.scdn.co/image/ab67616d0000b273b1c058783ee6ce6feb83ace3",
           "Life of Pi is a fantasy adventure novel by Yann Martel published in 2001.",
           "startUserId"
         ),
-        new Book(
-          "Catching Fire",
-          "Suzanne Collins",
+        new Genr(
+          "Hip Hop",
+          "The Hip Hop Music",
+          "https://cdn5.vectorstock.com/i/1000x1000/44/49/hip-hop-music-party-in-graffiti-style-vector-23244449.jpg",
+          "Against all odds, Katniss Everdeen has won the Hunger Games. She and fellow District 12 tribute Peeta Mellark are miraculously still alive.",
+          "startUserId"
+        ),
+        new Genr(
+          "Electronic",
+          "The Electronic Music",
+          "https://i.scdn.co/image/ab67616d0000b2733534c71aab61cb98fd2e4597",
+          "Against all odds, Katniss Everdeen has won the Hunger Games. She and fellow District 12 tribute Peeta Mellark are miraculously still alive.",
+          "startUserId"
+        ),
+        new Genr(
+          "Jazz",
+          "The Jazz Music",
+          "https://as1.ftcdn.net/v2/jpg/01/93/43/84/1000_F_193438413_HyXCr1RQubvGSQKrKoixqqJCAw5aAReI.jpg",
+          "Against all odds, Katniss Everdeen has won the Hunger Games. She and fellow District 12 tribute Peeta Mellark are miraculously still alive.",
+          "startUserId"
+        ),
+        new Genr(
+          "Metal",
+          "The Metal Music",
+          "https://cdn.getmidnight.com/b5a0b552ae89a91aa34705031852bd16/size/w600/2022/11/Instagram-post---1--1-.png",
+          "Against all odds, Katniss Everdeen has won the Hunger Games. She and fellow District 12 tribute Peeta Mellark are miraculously still alive.",
+          "startUserId"
+        ),
+        new Genr(
+          "R&B",
+          "The R&B Music",
+          "https://play-lh.googleusercontent.com/XiWVM3fqrBfqyJZ5kNwSzE0AT0vwm75WEkqgdsjzIEGSfb0f6vvytMwzxZGk2hj4pAQ",
+          "Against all odds, Katniss Everdeen has won the Hunger Games. She and fellow District 12 tribute Peeta Mellark are miraculously still alive.",
+          "startUserId"
+        ),
+        new Genr(
+          "Country",
+          "The Country Music",
+          "https://img.freepik.com/free-vector/hand-drawn-country-music-illustration_52683-86250.jpg",
+          "Against all odds, Katniss Everdeen has won the Hunger Games. She and fellow District 12 tribute Peeta Mellark are miraculously still alive.",
+          "startUserId"
+        ),
+        new Genr(
+          "K-pop",
+          "The K-Pop Music",
+          "",
+          "Against all odds, Katniss Everdeen has won the Hunger Games. She and fellow District 12 tribute Peeta Mellark are miraculously still alive.",
+          "startUserId"
+        ),
+        new Genr(
+          "Indie",
+          "The Indie Music",
           "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1586722941i/6148028.jpg",
           "Against all odds, Katniss Everdeen has won the Hunger Games. She and fellow District 12 tribute Peeta Mellark are miraculously still alive.",
           "startUserId"
         ),
+
       };
 
-      for (int i = 0; i < startBooks.Length; i++)
+      for (int i = 0; i < startGenres.Length; i++)
       {
-        database.Books.Add(startBooks[i]);
+        database.Genres.Add(startGenres[i]);
       }
 
       database.SaveChanges();
@@ -209,7 +259,7 @@ class Database() : DbBase("database")
   │ Add your database tables here │
   ╰──────────────────────────────*/
   public DbSet<User> Users { get; set; } = default!;
-  public DbSet<Book> Books { get; set; } = default!;
+  public DbSet<Genr> Genres { get; set; } = default!;
   public DbSet<Favorite> Favorites { get; set; } = default!;
 }
 
@@ -237,13 +287,13 @@ class Book(
   [ForeignKey("UploaderId")] public User Uploader { get; set; } = default!;
 }
 
-class Favorite(string userId, int bookId)
+class Favorite(string userId, int genrId)
 {
   [Key] public int Id { get; set; } = default!;
 
   public string UserId { get; set; } = userId;
   [ForeignKey("UserId")] public User User { get; set; } = default!;
 
-  public int BookId { get; set; } = bookId;
-  [ForeignKey("BookId")] public Book Book { get; set; } = default!;
+  public int GenrId { get; set; } = genrId;
+  [ForeignKey("GenrId")] public Genr Genr { get; set; } = default!;
 }
