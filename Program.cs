@@ -109,7 +109,9 @@ class Program
           {
             var (userId, bookId) = request.GetBody<(string?, int)>();
 
-            var book = database.Books.Find(bookId)!;
+            var book = database.Books
+              .Include(book => book.Uploader)
+              .First(book => book.Id == bookId)!;
 
             var uploader = book.Uploader.Username;
 

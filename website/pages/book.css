@@ -14,7 +14,6 @@ button {
 }
 
 #coverImg {
-  width: 200px;
   height: 300px;
   box-shadow: 0px 2px 40px -20px rgba(0, 0, 0, 0.75);
   border-radius: 7px;
