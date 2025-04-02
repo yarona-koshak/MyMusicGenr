@@ -1,10 +1,10 @@
-import { Book } from "../types";
+import { Genr } from "../types";
 import { send } from "../utilities";
 
 let loggedInDiv = document.getElementById("loggedInDiv") as HTMLDivElement;
 let favoritesContainer = document.getElementById("favoritesContainer") as HTMLDivElement;
 let uploadedByMeContainer = document.getElementById("uploadedByMeContainer") as HTMLDivElement;
-let booksContainer = document.getElementById("booksContainer") as HTMLDivElement;
+let booksContainer = document.getElementById("GenresContainer") as HTMLDivElement;
 
 
 let userId = localStorage.getItem("userId");
@@ -18,24 +18,24 @@ generatePreviews();
 
 
 async function generatePreviews() {
-  let books = await send("getBooks") as Book[];
+  let genres = await send("getGenres") as Genr[];
 
-  if (books.length == 0) {
-    booksContainer.innerText = "There are no books to display yet.";
+  if (genres.length == 0) {
+    booksContainer.innerText = "There are no Genres to display yet.";
   }
   else {
-    for (let i = 0; i < books.length; i++) {
-      let previewAnchor = createPreviewAnchor(books[i]);
+    for (let i = 0; i < genres.length; i++) {
+      let previewAnchor = createPreviewAnchor(genres[i]);
       booksContainer.appendChild(previewAnchor);
     }
   }
 }
 
 async function generateSortedPreviews() {
-  let [favorites, uploadedByMe] = await send("getSortedBooks", userId) as [Book[], Book[]];
+  let [favorites, uploadedByMe] = await send("getSortedGenres", userId) as [Genr[], Genr[]];
 
   if (favorites.length == 0) {
-    favoritesContainer.innerText = "Your favorite books will be displayed here.";
+    favoritesContainer.innerText = "Your favorite Genres will be displayed here.";
   }
   else {
     for (let i = 0; i < favorites.length; i++) {
@@ -45,7 +45,7 @@ async function generateSortedPreviews() {
   }
 
   if (uploadedByMe.length == 0) {
-    uploadedByMeContainer.innerText = "Books you upload will be display here.";
+    uploadedByMeContainer.innerText = "Genres you upload will be display here.";
   }
   else {
     for (let i = 0; i < uploadedByMe.length; i++) {
@@ -55,18 +55,18 @@ async function generateSortedPreviews() {
   }
 }
 
-function createPreviewAnchor(book: Book): HTMLAnchorElement {
+function createPreviewAnchor(genr: Genr): HTMLAnchorElement {
   let anchor = document.createElement("a");
   anchor.classList.add("preview");
-  anchor.href = "book.html?bookId=" + book.Id;
+  anchor.href = "genr.html?genrId=" + genr.Id;
 
   let img = document.createElement("img");
-  img.classList.add("bookImage");
-  img.src = book.ImageSource;
+  img.classList.add("genrImage");
+  img.src = genr.ImageSource;
   anchor.appendChild(img);
 
   let titleDiv = document.createElement("div");
-  titleDiv.innerText = book.Title;
+  titleDiv.innerText = genr.Title;
   anchor.appendChild(titleDiv);
 
   return anchor;

@@ -1,4 +1,4 @@
-export type Book = {
+export type Genr = {
   Id: number;
   Title: string;
   Author: string;

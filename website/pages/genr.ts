@@ -1,4 +1,4 @@
-import { Book } from "../types";
+import { Genr } from "../types";
 import { send } from "../utilities";
 
 let query = new URLSearchParams(location.search);
@@ -12,32 +12,32 @@ let favoriteCheckbox = document.getElementById("favoriteCheckbox") as HTMLInputE
 let descriptionDiv = document.getElementById("descriptionDiv") as HTMLDivElement;
 
 let userId = localStorage.getItem("userId");
-let bookId = Number(query.get("bookId"));
+let genrId = Number(query.get("genrId"));
 
-appendBook();
+appendGenr();
 
 favoriteCheckbox.onchange = function () {
   if (favoriteCheckbox.checked) {
-    send("addToFavorites", [userId, bookId]);
+    send("addToFavorites", [userId, genrId]);
   }
   else {
-    send("removeFromFavorites", [userId, bookId]);
+    send("removeFromFavorites", [userId, genrId]);
   }
 }
 
-async function appendBook() {
-  let [book, uploader, isFavorite] = await send("getBookInfo", [userId, bookId]) as [Book, string, boolean];
+async function appendGenr() {
+  let [genr, uploader, isFavorite] = await send("getGenrInfo", [userId, genrId]) as [Genr, string, boolean];
 
-  document.title = book.Title;
-  titleHeading.innerText = book.Title;
-  authorHeading.innerText = `by ${book.Author}`;
+  document.title = genr.Title;
+  titleHeading.innerText = genr.Title;
+  authorHeading.innerText = `by ${genr.Author}`;
   uploaderHeading.innerText = `Uploaded by ${uploader}`
-  coverImg.src = book.ImageSource;
+  coverImg.src = genr.ImageSource;
 
   if (userId != null) {
     favoriteDiv.classList.remove("hidden");
     favoriteCheckbox.checked = isFavorite;
   }
 
-  descriptionDiv.innerText = book.Description;
+  descriptionDiv.innerText = genr.Description;
 }

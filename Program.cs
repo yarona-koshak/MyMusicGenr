@@ -96,20 +96,18 @@ class Program
 
             response.Send((favorites, uploadedByMe));
           }
-          else if (request.Path == "addBook")
-          {
-            var (title, author, imageSource, description, uploaderId) =
-              request.GetBody<(string, string, string, string, string)>();
+          // else if (request.Path == "addGenr")
+          // {
+          //   var (title, author, imageSource, description, uploaderId) =
+          //     request.GetBody<(string, string, string, string, string)>();
 
-            var Genr = new Genr(title, author, imageSource, description, uploaderId);
+          //   var Genr = new Genr(title, author, imageSource, description, uploaderId);
 
-            database.Genres.Add(Genr);
-          }
+          //   database.Genres.Add(Genr);
+          // }
           else if (request.Path == "getGenrInfo")
           {
             var (userId, genrId) = request.GetBody<(string?, int)>();
-
-            var genr = database.Genres.Find(genrId)!;
 
             var uploader = genr.Uploader.Username;
 
@@ -173,14 +171,14 @@ class Program
           "Pop",
           "The Pop Music",
           "https://yt3.googleusercontent.com/Z8w-S67SqRr1QM3uZVQLzNQc9cIx-l4pokLv17Hd5cnoDIIl16WsNetzycuFeyhKO911kBwbfg=s900-c-k-c0x00ffffff-no-rj",
-          "A pilot stranded in the desert awakes one morning to see, standing before him, the most extraordinary little fellow.",
+          "Pop – Music for Everyone In a small café in London, a girl named Anna was sitting with big headphones on, listening to a new hit on the radio. The rhythm was fast, the melody was light and catchy. At that moment, she wanted nothing more than to get up and start dancing. This was her first experience with pop music, and for a moment, the whole world around her filled with joy. Pop is music that brings people together. It was born from a mix of different genres—rock and roll, jazz, even classical music—and became the heartbeat of modern culture. Simple lyrics, bright melodies, and rhythms that make you move—this is what makes pop music beloved by millions around the world. From The Beatles in the ‘60s, Michael Jackson and Madonna in the ‘80s, to Taylor Swift and Billie Eilish today—pop music is constantly evolving, yet it always remains popular. Like an old friend, it is always there, ready to bring joy through its sounds. And Anna? Inspired, she started writing her own songs. Because, just like pop music, she realized that the best way to express emotions is through music. 🎶✨",
           "startUserId"
         ),
         new Genr(
           "Rock",
           "The Rock Music",
           "https://i.scdn.co/image/ab67616d0000b273b1c058783ee6ce6feb83ace3",
-          "Life of Pi is a fantasy adventure novel by Yann Martel published in 2001.",
+          "Rock – The Music of Freedom In an old attic, among dusty vinyl records and a worn-out guitar, Max sat down. He ran his fingers over the strings, and the room filled with a raw, powerful sound. This was rock – music that never stays silent. Rock was born out of rebellion. In the 1950s, young people grew tired of boring melodies and wanted something wild, loud, and real. That’s when The Beatles, The Rolling Stones, and Led Zeppelin appeared – bands that changed the world. Their guitars screamed about freedom, their drums pounded in the rhythm of change. Rock comes in many forms. It can be light, like rock and roll, or heavy, like metal. It can tell stories, like psychedelic rock, or explode with pure energy, like punk. But one thing never changes – rock is the voice of a generation, music that isn’t afraid to tell the truth. Max picked up a guitar pick, strummed the strings, and a powerful riff shattered the silence. At that moment, he realized: rock isn’t just music. It’s a fire that burns inside everyone who wants to change the world. 🎸🔥",
           "startUserId"
         ),
         new Genr(
@@ -228,14 +226,14 @@ class Program
         new Genr(
           "K-pop",
           "The K-Pop Music",
-          "",
+          "https://play-lh.googleusercontent.com/VBhxDnFYm9Ep6I3fLylfbHqSeidtry0cEkNpkTsGIhNxgtvcd20G8tzyoSgyKBJQ6-k",
           "Against all odds, Katniss Everdeen has won the Hunger Games. She and fellow District 12 tribute Peeta Mellark are miraculously still alive.",
           "startUserId"
         ),
         new Genr(
           "Indie",
           "The Indie Music",
-          "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1586722941i/6148028.jpg",
+          "https://img.freepik.com/premium-vector/hand-drawn-indie-music-illustration_23-2149676347.jpg",
           "Against all odds, Katniss Everdeen has won the Hunger Games. She and fellow District 12 tribute Peeta Mellark are miraculously still alive.",
           "startUserId"
         ),
