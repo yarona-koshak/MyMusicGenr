@@ -17,7 +17,7 @@ signUpButton.onclick = function () {
 
 logOutButton.onclick = function logOut() {
   localStorage.removeItem("userId");
-  top!.location.href = "index.html";
+  top!.location.reload();
 };
 
 let userId = localStorage.getItem("userId");
@@ -28,6 +28,11 @@ if (username != null) {
   greetingDiv.innerText = "Welcome, " + username + "!";
   loggedInDiv.classList.remove("hidden");
 } else {
+  let userIdExists = localStorage.getItem("userId") != null;
   localStorage.removeItem("userId");
   loggedOutDiv.classList.remove("hidden");
+
+  if (userIdExists) {
+    top!.location.reload();
+  }
 }

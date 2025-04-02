@@ -160,7 +160,7 @@ class Program
 
   static void AddStartGenres(Database database)
   {
-    if (!database.Users.Any(user => user.Id == "startUserId"))
+    if (database.IsNewlyCreated())
     {
       var startUser = new User("startUserId", "Start User", "");
 
