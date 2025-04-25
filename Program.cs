@@ -4,9 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 class Program
 {
-    private static readonly object genr;
-
-    static void Main()
+  static void Main()
   {
     int port = 5000;
 
@@ -43,7 +41,7 @@ class Program
           /*──────────────────────────────────╮
           │ Handle your custome requests here │
           ╰──────────────────────────────────*/
-          if (request.Path == "signUp")
+          if (request.Path == "Signup")
           {
             var (username, password) = request.GetBody<(string, string)>();
 
@@ -58,7 +56,7 @@ class Program
               response.Send(userId);
             }
           }
-          else if (request.Path == "logIn")
+          else if (request.Path == "Login")
           {
             var (username, password) = request.GetBody<(string, string)>();
 
@@ -108,7 +106,7 @@ class Program
               );
             }
 
-            response.Send((genr, isFavorite));
+            response.Send((genrId, isFavorite));
           }
           else if (request.Path == "addToFavorites")
           {
@@ -161,7 +159,7 @@ class Program
           "The Pop Music",
           "https://yt3.googleusercontent.com/Z8w-S67SqRr1QM3uZVQLzNQc9cIx-l4pokLv17Hd5cnoDIIl16WsNetzycuFeyhKO911kBwbfg=s900-c-k-c0x00ffffff-no-rj",
           "Pop – Music for Everyone: Pop is music that brings people together. It was born from a mix of different genres—rock and roll, jazz, even classical music—and became the heartbeat of modern culture. Simple lyrics, bright melodies, and rhythms that make you move—this is what makes pop music beloved by millions around the world. From The Beatles in the ‘60s, Michael Jackson and Madonna in the ‘80s, to Taylor Swift and Billie Eilish today—pop music is constantly evolving, yet it always remains popular. Like an old friend, it is always there, ready to bring joy through its sounds.🎶✨"
-          
+
         ),
         new Genr(
           "Rock",
@@ -174,14 +172,14 @@ class Program
           "The Hip Hop Music",
           "https://cdn5.vectorstock.com/i/1000x1000/44/49/hip-hop-music-party-in-graffiti-style-vector-23244449.jpg",
           "Hip-Hop – The Voice of the Streets: Hip-hop emerged in the 1970s in the poor neighborhoods of New York. Young people were searching for their voice – and they found it in rhymes and beats. The first DJs mixed rhythms, while MCs rapped about life, struggles, and dreams. That’s how 2Pac, The Notorious B.I.G., Eminem, and Kanye West came to be – artists whose words changed the world. Hip-hop is more than just music. It’s a style, a culture, a protest. It’s breakdancing, graffiti, beat-making. It’s rhymes that make you think and beats that make you move. 🎤🔥"
-          
+
         ),
         new Genr(
           "Electronic",
           "The Electronic Music",
           "https://i.scdn.co/image/ab67616d0000b2733534c71aab61cb98fd2e4597",
           "Electronic Music – The Rhythm of the Future: Electronic music was born in sound laboratories, where composers searched for new ways to create melodies. Synthesizers, drum machines, computers – all of these replaced traditional instruments. That’s how techno, house, trance, and drum and bass emerged – genres that filled dance floors around the world. But electronic music isn’t just about parties. It’s the soundtracks of movies, atmospheric melodies that transport us to other worlds, and sonic experiments that push the boundaries of what’s possible.🎧✨"
-          
+
         ),
         new Genr(
           "Jazz",
@@ -194,7 +192,7 @@ class Program
           "The Metal Music",
           "https://cdn.getmidnight.com/b5a0b552ae89a91aa34705031852bd16/size/w600/2022/11/Instagram-post---1--1-.png",
           "Metal – The Music of Power: Metal was born from rock in the late ‘60s – heavier, louder, more aggressive. Black Sabbath, Metallica, Iron Maiden – these bands shaped a genre that became the voice of those unafraid to speak the truth. Sharp guitar riffs, blazing solos, deep lyrics – metal unites those who feel music with their hearts. There’s melodic heavy metal, dark doom, fast thrash, and extreme death metal – everyone can find their sound. But one thing remains true in all of them – honesty. Metal isn’t just music; it’s a way to express what words alone can’t.🎸🔥"
-          
+
         ),
         new Genr(
           "R&B",
@@ -213,14 +211,14 @@ class Program
           "The K-Pop Music",
           "https://play-lh.googleusercontent.com/VBhxDnFYm9Ep6I3fLylfbHqSeidtry0cEkNpkTsGIhNxgtvcd20G8tzyoSgyKBJQ6-k",
           "K-Pop – The Music of a Global Phenomenon: K-pop (Korean pop music) was born in South Korea in the 1990s and has since become a global phenomenon. Groups like BTS, BLACKPINK, and EXO captured the hearts of millions of fans worldwide. They combine captivating rhythms, amazing dance moves, and carefully crafted visuals. K-pop is not just music; it’s an entire industry where every detail – from production to fan interaction – matters. K-pop melodies are often bright and energetic, and the music videos are true visual masterpieces. This world is impossible not to fall in love with, as K-pop unites people through music, dance, and unique culture.🎶🌏"
-          
+
         ),
         new Genr(
           "Indie",
           "The Indie Music",
           "https://img.freepik.com/premium-vector/hand-drawn-indie-music-illustration_23-2149676347.jpg",
           "Indie – The Music of Independence: Indie was born in the 1980s when musicians started releasing their records without support from major labels. With this style came freedom – the freedom of self-expression, independence from commercial success. Artists like The Strokes, Arctic Monkeys, Tame Impala, and many others brought indie music popularity but still maintained their uniqueness. Indie can be anything – from soft folk to experimental electro. It’s music that reflects people’s feelings and experiences without trying to please everyone.🎸🎶"
-          
+
         ),
 
       };
@@ -257,22 +255,22 @@ class Genr(
   string title,
   string author,
   string imageSource,
-  string description
+  string text
 )
 {
   [Key] public int Id { get; set; } = default!;
   public string Title { get; set; } = title;
   public string Author { get; set; } = author;
   public string ImageSource { get; set; } = imageSource;
-  public string Description { get; set; } = description;
-  
+  public string Text { get; set; } = text;
+
 }
 
 class Favorite(string userId, int genrId)
 {
-    internal int genrId;
+  internal int genrId;
 
-    [Key] public int Id { get; set; } = default!;
+  [Key] public int Id { get; set; } = default!;
 
   public string UserId { get; set; } = userId;
   [ForeignKey("UserId")] public User User { get; set; } = default!;

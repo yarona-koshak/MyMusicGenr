@@ -10,7 +10,7 @@ submitButton.onclick = async function () {
 
   if (userId != null) {
     localStorage.setItem("userId", userId);
-    location.href = "index.html";
+    location.href = "login.html";
   }
   else {
     messageDiv.innerText = "Username is already taken";
