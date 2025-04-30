@@ -41,7 +41,7 @@ class Program
           /*──────────────────────────────────╮
           │ Handle your custome requests here │
           ╰──────────────────────────────────*/
-          if (request.Path == "Signup")
+          if (request.Path == "signUp")
           {
             var (username, password) = request.GetBody<(string, string)>();
 
