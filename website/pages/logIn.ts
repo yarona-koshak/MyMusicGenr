@@ -6,7 +6,7 @@ let submitButton = document.getElementById("submitButton") as HTMLButtonElement;
 let messageDiv = document.getElementById("messageDiv") as HTMLDivElement;
 
 submitButton.onclick = async function () {
-  let id = await send("Login", [usernameInput.value, passwordInput.value,]) as string | null;
+  let id = await send("login", [ usernameInput.value, passwordInput.value,]) as string | null;
 
   if (id == null) {
     usernameInput.value = "";
@@ -15,6 +15,6 @@ submitButton.onclick = async function () {
   }
   else {
     localStorage.setItem("userId", id);
-    location.href = "header.html";
+    location.href = "index.html";
   }
 }

@@ -2,16 +2,23 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="../general.css">
+  <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-  <h1>All Genres</h1>
-  <h2>Go To The Genres</h2>
-  <button id="TheStart">Click To Go</button>
-  <br>
-  <button id="Login">Log-In</button>
-  <button id="Signup">Sign-Up</button>
+  <iframe id="headerIframe" src="header.html"></iframe>
 
+  <div id="loggedInDiv" class="hidden">
+    <h2>Favorites</h2>
+    <div id="favoritesContainer" class="container"></div>
+
+
+    <a href="addGenr.html" class="addGenr">+</a>
+  </div>
+
+  <h2>The Genr</h2>
+  <div id="genresContainer" class="container"></div>
   <script type="module" src="index.js"></script>
 </body>
 
