@@ -43,10 +43,48 @@ h2 {
   
     box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.4);
   }
-  
   .genrImage {
     height: 150px;
     box-shadow: 0px 2px 40px -20px rgba(0, 0, 0, 0.75);
     border-radius: 7px;
     display: block;
   }
+  .main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #contener {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.2em;
+    }
+
+    .cssdiv {
+      height: auto;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 20px 10px rgba(23, 52, 72, 0.3);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    .cssdiv:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 40px 20px rgba(8, 44, 80, 0.5);
+    }
+
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 20px 10px rgba(7, 92, 109, 0.6);
+      }
+      to {
+        box-shadow: 0 0 40px 20px rgba(6, 122, 145, 0.6);
+      }
+    }

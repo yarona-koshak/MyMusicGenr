@@ -95,24 +95,12 @@ class Program
 
             response.Send((favorites));
           }
-          else if (request.Path == "addGenr")
-          {
-            var (title, imageSource, description) =
-              request.GetBody<(string, string, string)>();
-
-            var genr = new Genr(title, imageSource, description);
-
-            database.Genres.Add(genr);
-          }
           else if (request.Path == "getGenrInfo")
           {
             var (userId, genrId) = request.GetBody<(string?, int)>();
 
             var genr = database.Genres
-              .Include(genr => genr.Uploader)
               .First(genr => genr.Id == genrId)!;
-
-            var uploader = genr.Uploader.Username;
 
             bool isFavorite = false;
             if (userId != null)
@@ -122,7 +110,7 @@ class Program
               );
             }
 
-            response.Send((genr, uploader, isFavorite));
+            response.Send((genr, isFavorite));
           }
           else if (request.Path == "addToFavorites")
           {
@@ -174,7 +162,6 @@ class Program
           "Pop",
           "https://yt3.googleusercontent.com/Z8w-S67SqRr1QM3uZVQLzNQc9cIx-l4pokLv17Hd5cnoDIIl16WsNetzycuFeyhKO911kBwbfg=s900-c-k-c0x00ffffff-no-rj",
           "Pop – Music for Everyone: Pop is music that brings people together. It was born from a mix of different genres—rock and roll, jazz, even classical music—and became the heartbeat of modern culture. Simple lyrics, bright melodies, and rhythms that make you move—this is what makes pop music beloved by millions around the world. From The Beatles in the ‘60s, Michael Jackson and Madonna in the ‘80s, to Taylor Swift and Billie Eilish today—pop music is constantly evolving, yet it always remains popular. Like an old friend, it is always there, ready to bring joy through its sounds.🎶✨"
-
         ),
         new Genr(
           "Rock",
@@ -267,7 +254,6 @@ class Genr(
   public string Title { get; set; } = title;
   public string ImageSource { get; set; } = imageSource;
   public string Description { get; set; } = description;
-  [ForeignKey("UploaderId")] public User Uploader { get; set; } = default!;
 }
 
 class Favorite(string userId, int genrId)

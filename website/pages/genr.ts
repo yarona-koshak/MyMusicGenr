@@ -1,4 +1,5 @@
-import { Genr } from "../types";
+
+import { Genr } from "../../types";
 import { send } from "../utilities";
 
 let query = new URLSearchParams(location.search);
@@ -8,6 +9,8 @@ let coverImg = document.getElementById("coverImg") as HTMLImageElement;
 let favoriteDiv = document.getElementById("favoriteDiv") as HTMLDivElement;
 let favoriteCheckbox = document.getElementById("favoriteCheckbox") as HTMLInputElement;
 let descriptionDiv = document.getElementById("descriptionDiv") as HTMLDivElement;
+let backhome = document.getElementById("backhome") as HTMLButtonElement;
+
 
 let userId = localStorage.getItem("userId");
 let genrId = Number(query.get("genrId"));
@@ -24,7 +27,7 @@ favoriteCheckbox.onchange = function () {
 }
 
 async function appendGenr() {
-  let [genr, uploader, isFavorite] = await send("getGenrInfo", [userId, genrId]) as [Genr, string, boolean];
+  let [genr, isFavorite] = await send("getGenrInfo", [userId, genrId]) as [Genr, boolean];
 
   document.title = genr.Title;
   titleHeading.innerText = genr.Title;
@@ -37,3 +40,7 @@ async function appendGenr() {
 
   descriptionDiv.innerText = genr.Description;
 }
+
+backhome.onclick = function () {
+  top!.location.href = "index.html";
+};

@@ -20,6 +20,8 @@ generatePreviews();
 async function generatePreviews() {
   let genres = await send("getGenres") as Genr[];
 
+  console.log(genres);
+
   if (genres.length == 0) {
     genresContainer.innerText = "There are no genres to display yet.";
   }
@@ -48,6 +50,7 @@ async function generateSortedPreviews() {
 function createPreviewAnchor(genr: Genr): HTMLAnchorElement {
   let anchor = document.createElement("a");
   anchor.classList.add("preview");
+  anchor.classList.add("cssdiv");
   anchor.href = "genr.html?genrId=" + genr.Id;
 
   let img = document.createElement("img");
