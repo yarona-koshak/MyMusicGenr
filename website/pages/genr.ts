@@ -20,6 +20,7 @@ appendGenr();
 favoriteCheckbox.onchange = function () {
   if (favoriteCheckbox.checked) {
     send("addToFavorites", [userId, genrId]);
+  top!.location.href = "index.html";
   }
   else {
     send("removeFromFavorites", [userId, genrId]);
