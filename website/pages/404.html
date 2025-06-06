@@ -1,18 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title> 404 page) </title>
+  <meta charset="UTF-8">
+  <title>404 – Page Not Found</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #dff3fd, #b3e0f2);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #004f7c;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    h1 {
+      font-size: 120px;
+      margin: 0;
+      color: #3a8dad;
+    }
+
+    .note {
+      font-size: 60px;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .message {
+      font-size: 24px;
+      margin: 10px 0 30px;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      background-color: #5dbde0;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    a:hover {
+      background-color: #3ca3c7;
+    }
+  </style>
 </head>
 
 <body>
 
-  <h1> 404 </h1>
-  <div> Wrong Page </div>
+  <div class="note">🎵</div>
+  <h1>404</h1>
+  <div class="message">Oops! This page is offbeat.<br>Looks like the music stopped playing.</div>
+  <a href="/website/pages/index.html">Back to Home </a>
 
-  <br>
-
-  <a href="/website/pages/index.html"> Go Home </a>
 </body>
 
 </html>
