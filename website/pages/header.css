@@ -1,9 +1,5 @@
-@font-face {
-    font-family: "title";
-    src: url("../fonts/mal.ttf");
-  }
-  
-  body {
+
+body {
     overflow: hidden;
   }
   

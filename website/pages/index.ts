@@ -34,7 +34,8 @@ async function generatePreviews() {
 }
 
 async function generateSortedPreviews() {
-  let [favorites] = await send("getSortedGenres", userId) as [Genr[], Genr[]];
+  let favorites = await send("getSortedGenres", userId) as Genr[];
+  console.log(favorites);
 
   if (favorites.length == 0) {
     favoritesContainer.innerText = "Your favorite genres will be displayed here.";
