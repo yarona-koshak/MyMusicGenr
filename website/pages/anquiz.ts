@@ -11,7 +11,6 @@ interface Question {
   options: QuestionOption[];
 }
 
-// genr: pop, rock, hip-hop, jazz, indie, electronic, metal, r&b, country, k-pop
 
 const questions: Question[] = [
   {
@@ -240,7 +239,7 @@ const questions: Question[] = [
     ]
   }
 ];
-// Функция генерации теста
+// функция генерации теста
 function renderQuestions() {
   const form = document.getElementById("quiz-form")!;
   questions.forEach((q, qIndex) => {
